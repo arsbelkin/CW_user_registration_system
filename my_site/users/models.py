@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class City(models.Model):
-    name = models.CharField(max_length=25, db_index=True)
+    name = models.CharField(max_length=25, unique=True, db_index=True)
 
     def __str__(self) -> str:
         return self.name
