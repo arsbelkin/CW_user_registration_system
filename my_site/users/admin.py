@@ -16,7 +16,7 @@ class UserAdmin(UserAdmin):
     list_filter = ["gender", "city", "is_staff"]
 
     fieldsets = [
-        (None, {"fields": ["username", "password"]}),
+        (None, {"fields": ["username", "password", "email"]}),
         (
             "Personal info",
             {
