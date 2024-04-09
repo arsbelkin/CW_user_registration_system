@@ -1,8 +1,9 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-bs-theme="dark">
 <head>
+    <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
     <link type="text/css" rel="stylesheet" href="{% static 'users/css/bootstrap.min.css' %}">
 </head>
@@ -10,20 +11,16 @@
     <header class="p-3 text-bg-dark">
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="{% url 'index' %}" class="nav-link px-2 text-secondary">Home</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-    
-            <div class="text-end">
-              <a href="{% url 'login' %}" class="btn btn-outline-light me-2" role="button">Login</a>
-              <a href="{% url 'register' %}" class="btn btn-warning" role="button">Sign-up</a>
-            </div>
+            {% if not user.is_authenticated %}
+              {% include "nav_temp/nav_not_auth.html" %}
+            {% else %}
+              {% include "nav_temp/nav_auth.html" %}
+            {% endif %}
           </div>
         </div>
       </header>
     {% block content %}
     {% endblock %}
+    <script src="{% static 'users/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
