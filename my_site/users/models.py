@@ -13,6 +13,10 @@ class City(models.Model):
         verbose_name_plural = "cities"
 
 
+def user_directory_path(instance, filename):
+    return 'users/user_{0}/{1}'.format(instance.id, filename)
+
+
 class User(AbstractUser):
     GENDERS = (("m", "Мужчина"), ("f", "Женщина"))
 
@@ -29,4 +33,4 @@ class User(AbstractUser):
         choices=GENDERS,
         default="",
     )
-    image = models.ImageField(upload_to="users", verbose_name="Фотография", blank=True, null=True)
+    image = models.ImageField(upload_to=user_directory_path, verbose_name="Фотография", blank=True, null=True)

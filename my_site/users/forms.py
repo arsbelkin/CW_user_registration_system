@@ -104,3 +104,5 @@ class UserRegistrationForm(forms.ModelForm):
         if get_user_model().objects.filter(email=data).exists():
             raise forms.ValidationError("Email already in use.")
         return data
+
+

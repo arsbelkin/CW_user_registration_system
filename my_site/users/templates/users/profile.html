@@ -1,0 +1,43 @@
+{% extends "form_base.html" %}
+{% load static %}
+
+
+{% block title%}
+profile
+{% endblock %}
+
+{% block header%}
+<header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        {% include '../nav_temp/nav_auth.html' %}
+      </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block main %}
+<div class="container min-vh-100 d-flex justify-content-center">
+    <main class="form-signin w-50 m-auto">
+      <form method="post" enctype="multipart/form-data">
+        <h1 class="h3 mb-3 fw-normal">Your profile</h1>
+        <div class="form-floating">
+          {{ form.username }}
+          <label for="{{ user_form.username.id_for_label }}">{{ form.username.label }}</label>
+        </div>
+        <div class="form-floating">
+          {{ form.email }}
+          <label for="{{ user_form.email.id_for_label }}">{{ form.email.label }}</label>
+        </div>
+        <div class="form-floating">
+          {{ form.password }}
+          <label for="{{ user_form.password.id_for_label }}">{{ form.password.label }}</label>
+        </div>
+        <br>
+        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+        <p style="padding-top: 10px;">© 2024 Moscow</p>
+        {% csrf_token %}
+      </form>
+    </main>
+  </div>
+{% endblock %}

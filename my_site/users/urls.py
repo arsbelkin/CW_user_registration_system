@@ -46,4 +46,5 @@ urlpatterns = [
 
     
     path("register/", views.register, name="register"),
+    path("profile/", views.ProfileUser.as_view(), name="profile"),
 ]

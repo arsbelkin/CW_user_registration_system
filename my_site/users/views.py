@@ -1,6 +1,9 @@
+from django.db.models.base import Model as Model
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
-from .forms import UserRegistrationForm, LoginUserForm
+from .forms import UserRegistrationForm, LoginUserForm, ProfileUserForm
+from django.contrib.auth import get_user_model
+from django.views.generic.edit import UpdateView
 
 
 # Create your views here.

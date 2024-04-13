@@ -1,0 +1,10 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img src="../../static/users/images/logo.png" alt="logo" class="bi me-2" width="40" height="32">
+        </a>
+        <div class="text-end">
+            <a href="{% url 'users:login' %}" class="btn btn-outline-light me-2" role="button">Login</a>
+            <a href="{% url 'users:register' %}" class="btn btn-warning" role="button">Sign-up</a>
+        </div>
+</nav>

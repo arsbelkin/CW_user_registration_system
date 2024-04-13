@@ -1,8 +1,29 @@
+{% load static %}
+
 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-  <li><a href="{% url 'index' %}" class="nav-link px-2 text-secondary">Home</a></li>
-  <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+  <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+    <img src="../../static/users/images/logo.png" alt="logo" class="bi me-2" width="40" height="32">
+  </a>
+  <li><a href="{% url 'about' %}" class="nav-link px-2 text-white">About</a></li>
 </ul>
 
 <div class="text-end">
-    <a href="#" class="btn btn-outline-light me-2" role="button">Profile</a>
+  <div class="dropdown text-end">
+    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      {% if user_photo %}
+        <img src="{{ user_photo }}" alt="ava" width="32" height="32" class="rounded-circle">
+      {% else %}
+        <img src="{% static 'users/images/person-circle.svg' %}" alt="ava" width="32" height="32" class="rounded-circle">
+      {% endif %}
+    </a>
+    <ul class="dropdown-menu text-small">
+      <span class="dropdown-item">@{{ user.username }}</span>
+      {% if user.is_superuser%}
+        <li><a class="dropdown-item" href="{% url 'admin:index' %}">Админ панель</a></li>
+      {% endif %}
+      <li><a class="dropdown-item" href="{% url 'users:profile' %}">Профиль</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{% url 'users:logout' %}">Sign out</a></li>
+    </ul>
+  </div>
 </div>
