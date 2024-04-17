@@ -1,10 +1,16 @@
+from typing import Any
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.deconstruct import deconstructible
+from django.core.exceptions import ValidationError
+from datetime import date
 
 
 # Create your models here.
 class City(models.Model):
-    name = models.CharField(max_length=25, unique=True, db_index=True, verbose_name="Название")
+    name = models.CharField(
+        max_length=25, unique=True, db_index=True, verbose_name="Название"
+    )
 
     def __str__(self) -> str:
         return self.name
@@ -14,7 +20,22 @@ class City(models.Model):
 
 
 def user_directory_path(instance, filename):
-    return 'users/user_{0}/{1}'.format(instance.id, filename)
+    return "users/user_{0}/{1}".format(instance.id, filename)
+
+
+@deconstructible
+class TodayDateValidator:
+    code = "today_date"
+
+    def __init__(self, message=None):
+        self.message = message if message else "Дата рождения не может быть в будущем"
+
+    def __call__(self, value, *args, **kwds):
+        data = str(value).split("-")
+        today = str(date.today()).split("-")
+
+        if not all(((int(data[i]) <= int(today[i])) for i in range(3))):
+            raise ValidationError(self.message, code=self.code)
 
 
 class User(AbstractUser):
@@ -23,7 +44,14 @@ class User(AbstractUser):
     patronymic = models.CharField(
         verbose_name="Отчество", blank=True, null=True, max_length=50, default=""
     )
-    date_of_birth = models.DateField(verbose_name="Дата рождения", default="2005-01-01", blank=True, null=True)
+    date_of_birth = models.DateField(
+        verbose_name="Дата рождения",
+        blank=True,
+        null=True,
+        validators=[
+            TodayDateValidator(),
+        ],
+    )
     city = models.ForeignKey(to=City, null=True, on_delete=models.SET_NULL, blank=True)
     gender = models.CharField(
         verbose_name="Пол",
@@ -33,4 +61,6 @@ class User(AbstractUser):
         choices=GENDERS,
         default="",
     )
-    image = models.ImageField(upload_to=user_directory_path, verbose_name="Фотография", blank=True, null=True)
+    image = models.ImageField(
+        upload_to=user_directory_path, verbose_name="Фотография", blank=True, null=True
+    )

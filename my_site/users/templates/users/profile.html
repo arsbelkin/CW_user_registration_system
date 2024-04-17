@@ -20,22 +20,67 @@ profile
 <div class="container min-vh-100 d-flex justify-content-center">
     <main class="form-signin w-50 m-auto">
       <form method="post" enctype="multipart/form-data">
-        <h1 class="h3 mb-3 fw-normal">Your profile</h1>
-        <div class="form-floating">
-          {{ form.username }}
-          <label for="{{ user_form.username.id_for_label }}">{{ form.username.label }}</label>
+        <h1 class="h1 mb-3 fw-normal">Твой профиль</h1>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">@</span>
+          <div class="form-floating">
+            {{ form.username }}
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+          </div>
         </div>
         <div class="form-floating">
           {{ form.email }}
-          <label for="{{ user_form.email.id_for_label }}">{{ form.email.label }}</label>
+          <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
         </div>
-        <div class="form-floating">
-          {{ form.password }}
-          <label for="{{ user_form.password.id_for_label }}">{{ form.password.label }}</label>
+
+        <div class="row", style="padding-top: 10px;">
+          <div class="col">
+            <div class="form-floating">
+              {{ form.last_name }}
+              <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating">
+              {{ form.first_name }}
+              <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating">
+              {{ form.patronymic }}
+              <label for="{{ form.patronymic.id_for_label }}">{{ form.patronymic.label }}</label>
+            </div>
+          </div>
         </div>
+
+        <div class="row", style="padding-top: 10px;">
+          <div class="col">
+            <div class="form-group col-md-6, style="width: 100px;">
+              <div class="form-floating">
+                {{ form.gender }}
+                <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating">
+              {{ form.city }}
+              <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating">
+              {{ form.date_of_birth }}
+              <label for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
+            </div>
+          </div>
+        </div>
+
         <br>
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-        <p style="padding-top: 10px;">© 2024 Moscow</p>
+        <button class="btn btn-primary w-100 py-2" type="submit">Обновить данные</button>
+        <p style="padding-top: 10px;">© 2024 Москва</p>
         {% csrf_token %}
       </form>
     </main>
