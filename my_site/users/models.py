@@ -1,9 +1,9 @@
-from typing import Any
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.deconstruct import deconstructible
 from django.core.exceptions import ValidationError
 from datetime import date
+from django.urls import reverse
 
 
 # Create your models here.
@@ -11,6 +11,8 @@ class City(models.Model):
     name = models.CharField(
         max_length=25, unique=True, db_index=True, verbose_name="Название"
     )
+
+    is_available = models.BooleanField(default=False, verbose_name="Доступен для выбора")
 
     def __str__(self) -> str:
         return self.name
@@ -64,3 +66,8 @@ class User(AbstractUser):
     image = models.ImageField(
         upload_to=user_directory_path, verbose_name="Фотография", blank=True, null=True
     )
+    is_displayed = models.BooleanField(verbose_name="Отображается в списке", default=False)
+
+    def get_absolute_url(self):
+        return reverse('users:show_user', kwargs={'username': self.username})
+    

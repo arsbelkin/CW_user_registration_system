@@ -1,0 +1,24 @@
+{% load static %}
+
+
+{% for user in users%}
+    <div class="d-flex justify-content-center", style="padding-top: 10px;">
+        <div class="col-md-8">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary-emphasis">@{{ user.username }}</strong>
+                    <h3 class="mb-0">{{ user.first_name}} {{user.last_name }}</h3>
+                    {% if user.city %}
+                        <div class="mb-1 text-body-secondary">{{ user.city }}</div>
+                    {% endif %}
+                    <a href="{{ user.get_absolute_url }}" class="icon-link">
+                        Посмотреть подробную информацию
+                    </a>
+                </div>
+                <div class="col-auto d-none d-lg-block" style="padding: 10px;">
+                    <img src="{% if user.image %} ../../../media/{{ user.image }} {% else %} {% static 'users/images/person-circle.svg' %} {% endif %}" alt="user_ava" width="150" height="150" class="rounded-circle">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

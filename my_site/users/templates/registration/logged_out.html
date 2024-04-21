@@ -4,9 +4,12 @@
 {% block title %}Logged out{% endblock %}
 
 {% block content %}
-    <h1>Logged out</h1>
-    <p>
-        you have been successfully logged out.
-        you can <a href="{% url 'users:login' %}">Log-in again</a>
-    </p>
+    <div class="container">
+        <h1>Вы вышли из аккаунта</h1>
+        <p>
+            Вы успешно вышли из аккаунта
+            <br>
+            Вы можете <a href="{% url 'users:login' %}">авторизоваться заново</a>
+        </p>
+    </div>
 {% endblock%}

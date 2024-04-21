@@ -87,13 +87,11 @@ profile
         margin-left: 35%;
         margin-right: 35%;
         border-radius: 30px;
-        margin-top: 15%;
     }
+
     .avatar-header {      
         padding-top: 10px;
         padding-bottom: 10px;
-        border-radius: 4px;
-        margin-bottom: 20px;
     }
 
     .nametitle {
@@ -129,115 +127,82 @@ profile
 {% endblock %}
 
 {% block header%}
-<header class="p-3 text-bg-dark">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        {% include '../nav_temp/nav_auth.html' %}
-      </div>
-    </div>
-</header>
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            {% include '../nav_temp/nav_auth.html' %}
+        </div>
+        </div>
+    </header>
 {% endblock %}
 
 {% block main %}
 <div class="container min-vh-100 d-flex justify-content-center">
     <main class="form-signin w-50 m-auto">
       <form method="post" enctype="multipart/form-data">
-        <h1 class="h1 mb-3 fw-normal" style="padding-bottom: 15px;">Твой профиль</h1>
-
+        <h1 class="h1 mb-3 fw-normal" style="padding-bottom: 15px;">Профиль пользователя @{{user.username}}</h1>
         <div id="avatar-header">
-            <div class="avatar-wrapper">
-                {% if user_photo %}
-                  <img src="{{ user_photo }}" alt="ava" class="profile-pic">
-                {% else %}
-                  <img src="{% static 'users/images/person-circle.svg' %}" alt="ava" class="profile-pic">
-                {% endif %}
-                <div class="upload-button">
-                    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                </div>
-                {{ form.image }}
-            </div>
-            <input type="checkbox" name="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
-            <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Фотография по умолчанию</label>
+              <img src="{% if user.image %} ../../../media/{{ user.image }} {% else %} {% static 'users/images/person-circle.svg' %} {% endif %}" alt="user_ava" width="150" height="150" class="rounded-circle">
         </div>
         <br>
         <div class="input-group mb-3">
           <span class="input-group-text">@</span>
           <div class="form-floating">
-            {{ form.username }}
-            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            <input type="username" name="username" value="{{ user.username }}" class="form-control" id="floatingInput" placeholder="Username" required="" readonly>
+            <label for="floatingInput">Логин</label>
           </div>
         </div>
         <div class="form-floating">
-          {{ form.email }}
-          <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+          <input type="email" name="email" value="{{ user.email }}" class="form-control" id="floatingEmail" placeholder="Email" required="" readonly>
+          <label for="floatingEmail">E-mail</label>
         </div>
 
-        <div class="row", style="padding-top: 10px;">
+        <div class="row" ,="" style="padding-top: 10px;">
           <div class="col">
             <div class="form-floating">
-              {{ form.last_name }}
-              <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+              <input type="text" name="last_name" value="{{ user.last_name }}" class="form-control" placeholder="Фамилия" id="id_last_name" readonly>
+              <label for="id_last_name">last name</label>
             </div>
           </div>
           <div class="col">
             <div class="form-floating">
-              {{ form.first_name }}
-              <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+              <input type="text" name="first_name" value="{{ user.first_name }}" class="form-control" placeholder="Имя" id="id_first_name" readonly>
+              <label for="id_first_name">first name</label>
             </div>
           </div>
           <div class="col">
             <div class="form-floating">
-              {{ form.patronymic }}
-              <label for="{{ form.patronymic.id_for_label }}">{{ form.patronymic.label }}</label>
+              <input type="text" name="patronymic" class="form-control" value="{{ user.patronymic }}" placeholder="Отчество" id="id_patronymic" readonly>
+              <label for="id_patronymic">patronymic</label>
             </div>
           </div>
         </div>
 
-        <div class="row", style="padding-top: 10px;">
+        <div class="row" ,="" style="padding-top: 10px;">
           <div class="col">
-            <div class="form-group col-md-6, style="width: 100px;">
+            <div class="form-group col-md-6, style=" width:="" 100px;>
               <div class="form-floating">
-                {{ form.gender }}
-                <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                <input type="text" value="{{ user_gender }}" name="gender" class="form-control text-center" id="inputState" readonly>
+                <label for="inputState">Gender</label>
               </div>
             </div>
           </div>
           <div class="col">
             <div class="form-floating">
-              {{ form.city }}
-              <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+              <input type="text" name="city" value="{% if user.city %}  {{ user.city }} {% else %} {% endif %}" class="form-control text-center" id="inputState" readonly>
+              <label for="inputState">City</label>
             </div>
           </div>
           <div class="col">
             <div class="form-floating">
-              {{ form.date_of_birth }}
-              <label for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
+              <input type="text" name="date_of_birth" value="{% if user.date_of_birth %}  {{ user.date_of_birth }} {% else %} {% endif %}" class="form-control" id="id_date_of_birth" readonly>
+              <label for="id_date_of_birth">Date of Birth</label>
             </div>
           </div>
         </div>
 
-        <div style="padding-top: 10px; padding-left: 10px">
-          <div class="form-check form-switch">
-            {{ form.is_displayed }}
-            <label class="form-check-label" for="flexSwitchCheckDefault">{{ form.is_displayed.label }}</label>
-          </div>
-        </div>
-
-        <div class="row" style="padding: 10px;">
-          <div class="col text-center">
-            <a href="{% url 'users:password_change' %}" style="color: #68e5e9; text-decoration: none;">Изменить пароль</a>
-          </div>
-          <div class="col text-center">
-            <a href="{% url 'users:add_city' %}" style="color: #eb0dff; text-decoration: none;">Добавить свой город</a>
-          </div>
-          <div class="col text-center">
-            <a href="{% url 'users:delete_user' %}" style="color: #e90000; text-decoration: none;">Удалить аккаунт</a>
-          </div>
-        </div>
-
-        <button class="btn btn-primary w-100 py-2" type="submit">Обновить данные</button>
         <p style="padding-top: 10px;">© 2024 Москва</p>
-        {% csrf_token %}
+        <input type="hidden" name="csrfmiddlewaretoken" value="Vn7ppYHbSCBW4yM4P40ZLr65dkLZuWqjYcbNmRAbtlsB7S4DEHl7leeeRkQlra8F">
       </form>
     </main>
   </div>

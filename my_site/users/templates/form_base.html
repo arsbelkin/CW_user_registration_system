@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %}</title>
 
+  {% block head %}{% endblock %}
+
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -98,5 +100,7 @@
     {% block main %}{% endblock %}
 
   <script src="{% static 'users/js/bootstrap.bundle.min.js' %}"></script>
+
+  {% block script %}{% endblock %}
 
 </body></html>

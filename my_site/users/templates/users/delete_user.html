@@ -1,13 +1,15 @@
 {% extends "form_base.html" %}
 {% load static %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}
+    delete user
+{% endblock %}
 
 {% block header %}
   <nav class="p-3 text-bg-dark">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        {% include "../nav_temp/nav_not_auth.html" %}
+        {% include "../nav_temp/nav_auth.html" %}
       </div>
     </div>
   </nav>
@@ -17,13 +19,14 @@
   <div class="container min-vh-100 d-flex justify-content-center">
     <main class="form-signin w-50 m-auto">
       <form method="post" class="requires-validation">
-        <h1 class="h1 mb-3 fw-normal">Забыли пароль?</h1>
-        <h1 class="h6 mb-3 fw-normal">Введите e-mail адресс, чтобы получить новый пароль</h1>
+        <h1 class="h1 mb-3 fw-normal">Подтверждение удаления</h1>
+        <h1 class="h6 mb-3 fw-normal">Чтобы подтвердить удаление аккаунта введите <b><i>users/{{ user.username }}</i></b> в поле ниже</h1>
         <div class="form-floating" style="padding-bottom: 10px;">
-          {{ form.email }}
-          <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+          {{ form.confirmation }}
+          <label for="{{ form.confirmation.id_for_label }}">{{ form.confirmation.label }}</label>
         </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">Подтвердить</button>
+        <input type="hidden" name="hidden_data" value="{{ user.username }}">
+        <button class="btn btn-danger w-100 py-2" type="submit">Удалить</button>
         <p style="padding-top: 10px;">© 2024 Moscow</p>
         {% csrf_token %}
       </form>

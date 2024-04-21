@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    delete user done
+{% endblock %}
+
+
+{% block content %}
+  <div class="container">
+        <h1>
+            Пользователь удален
+        </h1>
+        <span>Вы можете</span>
+        <a href="{% url 'users:register' %}">зарегистрироваться</a>
+  </div>
+{% endblock %}

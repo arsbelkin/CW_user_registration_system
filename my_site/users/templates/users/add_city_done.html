@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    add city done
+{% endblock %}
+
+
+{% block content %}
+  <div class="container">
+        <h1>
+            Город добавлен
+        </h1>
+        <span>
+            Вы сможете выбрать добавленный город после одобрения админом
+        </span>
+        <br>
+        <a href="{% url 'users:profile' %}">Вернуться в профиль</a>
+  </div>
+{% endblock %}

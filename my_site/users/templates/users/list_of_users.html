@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}list of user{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% include 'users/one_user.html' %}
+    </div>
+{% endblock %}

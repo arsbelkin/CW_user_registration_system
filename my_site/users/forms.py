@@ -1,6 +1,11 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+)
 from .models import City
 
 
@@ -184,7 +189,7 @@ class ProfileUserForm(forms.ModelForm):
     )
 
     city = forms.ModelChoiceField(
-        queryset=City.objects.order_by("name"),
+        queryset=City.objects.filter(is_available=True).order_by("name"),
         required=False,
         widget=CustomSelect(
             attrs={
@@ -207,6 +212,31 @@ class ProfileUserForm(forms.ModelForm):
         input_formats=["%Y-%m-%d"],
     )
 
+    image = forms.FileField(
+        label="image",
+        required=False,
+        widget=forms.FileInput(
+            attrs={
+                "type": "file",
+                "id": "photoInput",
+                "accept": "image/*",
+                "class": "file-upload",
+            }
+        ),
+    )
+
+    is_displayed = forms.BooleanField(
+        label="Отображать пользователя в списке пользователей",
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": "form-check-input",
+                "role": "switch",
+                "id": "flexSwitchCheckDefault",
+            }
+        ),
+    )
+
     class Meta:
         model = get_user_model()
         fields = [
@@ -218,4 +248,147 @@ class ProfileUserForm(forms.ModelForm):
             "gender",
             "city",
             "date_of_birth",
+            "image",
+            "is_displayed",
+        ]
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label=" old password",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingPassword",
+                "type": "password",
+                "placeholder": "Old password",
+            }
+        ),
+    )
+
+    new_password1 = forms.CharField(
+        label="new password",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingPassword",
+                "type": "password",
+                "placeholder": "new password",
+            }
+        ),
+    )
+
+    new_password2 = forms.CharField(
+        label="repeat new password",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingPassword",
+                "type": "password",
+                "placeholder": "repeat password",
+            }
+        ),
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            "old_password",
+            "new_password1",
+            "new_password2",
+        ]
+
+
+class AddCityForm(forms.ModelForm):
+    name = forms.CharField(
+        label="Название города",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingInput",
+                "type": "text",
+                "placeholder": "city_name",
+                "name": "city_name",
+            }
+        ),
+    )
+
+    class Meta:
+        model = City
+        fields = [
+            "name",
+        ]
+
+
+class DeleteUserForm(forms.Form):
+    confirmation = forms.CharField(
+        label="Подтверждение",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingInput",
+                "type": "text",
+                "placeholder": "confirmation",
+                "name": "confirmation",
+            }
+        ),
+    )
+
+    def clean_confirmation(self):
+        confirmation = self.cleaned_data["confirmation"]
+        hidden_data = self.data["hidden_data"]
+        if not (confirmation == f"users/{hidden_data}"):
+            raise forms.ValidationError(message="Введите правильный код подтверждения")
+
+
+class PasswordResetForm(PasswordResetForm):
+    email = forms.CharField(
+        label="E-mail",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingEmail",
+                "type": "email",
+                "placeholder": "Email",
+            }
+        ),
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            "email",
+        ]
+
+
+class PasswordResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="new password",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingPassword",
+                "type": "password",
+                "placeholder": "new password",
+            }
+        ),
+    )
+
+    new_password2 = forms.CharField(
+        label="repeat new password",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "id": "floatingPassword",
+                "type": "password",
+                "placeholder": "repeat password",
+            }
+        ),
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            "new_password1",
+            "new_password2",
         ]
