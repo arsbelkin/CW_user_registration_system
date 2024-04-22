@@ -3,7 +3,7 @@
 
 
 {% block title%}
-profile
+  Профиль пользователя @{{ user.username }}
 {% endblock %}
 
 {% block head %}
@@ -140,7 +140,7 @@ profile
 <div class="container min-vh-100 d-flex justify-content-center">
     <main class="form-signin w-50 m-auto">
       <form method="post" enctype="multipart/form-data">
-        <h1 class="h1 mb-3 fw-normal" style="padding-bottom: 15px;">Профиль пользователя @{{user.username}}</h1>
+        <h1 class="h1 mb-3 fw-normal" style="padding-bottom: 15px;">Профиль пользователя @{{ user.username }}</h1>
         <div id="avatar-header">
               <img src="{% if user.image %} ../../../media/{{ user.image }} {% else %} {% static 'users/images/person-circle.svg' %} {% endif %}" alt="user_ava" width="150" height="150" class="rounded-circle">
         </div>

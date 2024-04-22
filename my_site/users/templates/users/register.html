@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-register
+  Регистрация
 {% endblock %}
 
 {% block header %}
@@ -19,15 +19,25 @@ register
   <div class="container min-vh-100 d-flex justify-content-center">
     <main class="form-signin w-50 m-auto">
       <form method="post" action="{% url 'users:register' %}">
-        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <h1 class="h3 mb-3 fw-normal">Пожалуйста зарегистрируйтесь</h1>
         <div class="form-floating">
           {{ user_form.username }}
           <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}</label>
         </div>
+        {% if user_form.username.errors %}
+          <div style="font-size:100%;color:#e90000">
+            {{ user_form.username.errors }}
+          </div>
+        {% endif %}
         <div class="form-floating">
           {{ user_form.email }}
           <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}</label>
         </div>
+        {% if user_form.email.errors %}
+          <div style="font-size:100%;color:#e90000">
+            {{ user_form.email.errors }}
+          </div>
+        {% endif %}
         <div class="form-floating">
           {{ user_form.password }}
           <label for="{{ user_form.password.id_for_label }}">{{ user_form.password.label }}</label>
@@ -36,8 +46,13 @@ register
           {{ user_form.password2 }}
           <label for="{{ user_form.password2.id_for_label }}">{{ user_form.password2.label }}</label>
         </div>
+        {% if user_form.password2.errors %}
+          <div style="font-size:100%;color:#e90000">
+            {{ user_form.password2.errors }}
+          </div>
+        {% endif %}
         <br>
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+        <button class="btn btn-primary w-100 py-2" type="submit">Зарегистрироваться</button>
         <p style="padding-top: 10px;">© 2024 Moscow</p>
         {% csrf_token %}
       </form>

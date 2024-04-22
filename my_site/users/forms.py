@@ -11,7 +11,7 @@ from .models import City
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(
-        label="username",
+        label="Логин",
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
@@ -24,7 +24,7 @@ class LoginUserForm(AuthenticationForm):
     )
 
     password = forms.CharField(
-        label="password",
+        label="Пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
@@ -42,7 +42,8 @@ class LoginUserForm(AuthenticationForm):
 
 class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField(
-        label="username",
+        error_messages={"unique": "Пользователь с таким логином уже существует"},
+        label="Логин",
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
@@ -67,7 +68,7 @@ class UserRegistrationForm(forms.ModelForm):
     )
 
     password = forms.CharField(
-        label="password",
+        label="Пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
@@ -79,7 +80,7 @@ class UserRegistrationForm(forms.ModelForm):
     )
 
     password2 = forms.CharField(
-        label="repeat password",
+        label="Повторите пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
@@ -102,18 +103,19 @@ class UserRegistrationForm(forms.ModelForm):
     def clean_password2(self):
         cd = self.cleaned_data
         if cd["password"] != cd["password2"]:
-            raise forms.ValidationError("Passwords don't match.")
+            raise forms.ValidationError("Пароли не совпадают", code='password_mismatch')
         return cd["password2"]
 
     def clean_email(self):
         data = self.cleaned_data["email"]
         if get_user_model().objects.filter(email=data).exists():
-            raise forms.ValidationError("Email already in use.")
+            raise forms.ValidationError("Такой e-mail уже используется", code='unique')
         return data
 
 
 class ProfileUserForm(forms.ModelForm):
     username = forms.CharField(
+        error_messages={'unique': 'Пользователь с таким логином уже существует'},
         label="Логин",
         widget=forms.TextInput(
             attrs={
@@ -127,6 +129,7 @@ class ProfileUserForm(forms.ModelForm):
     )
 
     email = forms.CharField(
+        error_messages={'unique': 'Пользователь с таким e-mail уже существует'},
         label="E-mail",
         widget=forms.TextInput(
             attrs={
@@ -142,6 +145,7 @@ class ProfileUserForm(forms.ModelForm):
         option_inherits_attrs = True
 
     gender = forms.ChoiceField(
+        label='Пол',
         choices=(("", "Не указан"), ("m", "Мужчина"), ("f", "Женщина")),
         required=False,
         widget=CustomSelect(
@@ -153,7 +157,7 @@ class ProfileUserForm(forms.ModelForm):
     )
 
     last_name = forms.CharField(
-        label="last name",
+        label="Фамилия",
         required=False,
         widget=forms.TextInput(
             attrs={
@@ -165,7 +169,7 @@ class ProfileUserForm(forms.ModelForm):
     )
 
     first_name = forms.CharField(
-        label="first name",
+        label="Имя",
         required=False,
         widget=forms.TextInput(
             attrs={
@@ -177,7 +181,7 @@ class ProfileUserForm(forms.ModelForm):
     )
 
     patronymic = forms.CharField(
-        label="patronymic",
+        label="Отчество",
         required=False,
         widget=forms.TextInput(
             attrs={
@@ -189,6 +193,7 @@ class ProfileUserForm(forms.ModelForm):
     )
 
     city = forms.ModelChoiceField(
+        label='Город',
         queryset=City.objects.filter(is_available=True).order_by("name"),
         required=False,
         widget=CustomSelect(
@@ -200,7 +205,7 @@ class ProfileUserForm(forms.ModelForm):
     )
 
     date_of_birth = forms.DateField(
-        label="Date of Birth",
+        label="Дата рождения",
         required=False,
         widget=forms.DateInput(
             format="%Y-%m-%d",
@@ -255,7 +260,7 @@ class ProfileUserForm(forms.ModelForm):
 
 class PasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
-        label=" old password",
+        label="Старый пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
@@ -267,7 +272,7 @@ class PasswordChangeForm(PasswordChangeForm):
     )
 
     new_password1 = forms.CharField(
-        label="new password",
+        label="Новый пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
@@ -279,7 +284,7 @@ class PasswordChangeForm(PasswordChangeForm):
     )
 
     new_password2 = forms.CharField(
-        label="repeat new password",
+        label="Повторите новый пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",

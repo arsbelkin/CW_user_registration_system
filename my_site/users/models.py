@@ -43,6 +43,10 @@ class TodayDateValidator:
 class User(AbstractUser):
     GENDERS = (("m", "Мужчина"), ("f", "Женщина"))
 
+    email = models.EmailField(
+        verbose_name='e-mail', blank=False, unique=True
+    )
+
     patronymic = models.CharField(
         verbose_name="Отчество", blank=True, null=True, max_length=50, default=""
     )

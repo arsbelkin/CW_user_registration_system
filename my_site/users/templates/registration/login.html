@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title%}
-Sign-in
+  Sign-in
 {% endblock %}
 
 
@@ -13,7 +13,7 @@ Sign-in
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none" style="padding-bottom: 10px;">
           <img src="../../static/users/images/logo.png" alt="logo" class="bi me-2" width="60" height="40">
         </a>
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal">Пожалуйства авторизуйтесь</h1>
           <div class="form-floating">
             {{ form.username }}
             <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
@@ -23,11 +23,11 @@ Sign-in
             <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
           </div>
           <div class="text-end" style="padding: 10px;">
-            <a href="{% url 'users:password_reset' %}">Forgot password?</a>
+            <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
           </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+        <button class="btn btn-primary w-100 py-2" type="submit">Авторизоваться</button>
         <div style="padding: 10px;">
-          New user? <a href="{% url 'users:register' %}">Create an account</a>
+          Новый пользователь? <a href="{% url 'users:register' %}">Создайте аккаунт</a>
         </div>
         <p class="">© 2024 Moscow</p>
         {% csrf_token %}

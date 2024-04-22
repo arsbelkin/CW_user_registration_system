@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    delete user
+    Удаление аккаунта
 {% endblock %}
 
 {% block header %}
@@ -25,6 +25,11 @@
           {{ form.confirmation }}
           <label for="{{ form.confirmation.id_for_label }}">{{ form.confirmation.label }}</label>
         </div>
+        {% if form.confirmation.errors %}
+          <div style="font-size:100%;color:#e90000">
+            {{ form.confirmation.errors }}
+          </div>
+        {% endif %}
         <input type="hidden" name="hidden_data" value="{{ user.username }}">
         <button class="btn btn-danger w-100 py-2" type="submit">Удалить</button>
         <p style="padding-top: 10px;">© 2024 Moscow</p>

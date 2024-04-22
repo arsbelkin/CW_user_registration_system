@@ -19,6 +19,7 @@ class CityAdmin(admin.ModelAdmin):
         "set_available",
         "set_unavailable",
     ]
+    search_fields = ['name',]
 
     @admin.action(description="Сделать доступными")
     def set_available(self, request, queryset):

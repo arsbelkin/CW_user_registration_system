@@ -3,7 +3,7 @@
 
 
 {% block title%}
-profile
+  Профиль пользователя
 {% endblock %}
 
 {% block head %}
@@ -167,10 +167,20 @@ profile
             <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
           </div>
         </div>
+        {% if form.username.errors %}
+        <div style="font-size:100%;color:#e90000">
+          {{ form.username.errors }}
+        </div>
+        {% endif %}
         <div class="form-floating">
           {{ form.email }}
           <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
         </div>
+        {% if form.email.errors %}
+        <div style="font-size:100%;color:#e90000">
+          {{ form.email.errors }}
+        </div>
+        {% endif %}
 
         <div class="row", style="padding-top: 10px;">
           <div class="col">
@@ -213,6 +223,11 @@ profile
               {{ form.date_of_birth }}
               <label for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
             </div>
+            {% if form.date_of_birth.errors %}
+              <div style="font-size:100%;color:#e90000">
+                {{ form.date_of_birth.errors }}
+              </div>
+            {% endif %}
           </div>
         </div>
 
