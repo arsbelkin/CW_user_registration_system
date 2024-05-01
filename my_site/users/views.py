@@ -188,7 +188,7 @@ class ListUserView(LoginRequiredMixin, ListView):
 class ShowUser(DetailView):
     template_name = "users/detail_user.html"
     slug_url_kwarg = "username"
-    context_object_name = "user"
+    context_object_name = "detail_user"
 
     def get_object(self, queryset=None):
         return get_user_model().objects.get(username=self.kwargs[self.slug_url_kwarg])
@@ -202,7 +202,7 @@ class ShowUser(DetailView):
             if self.request.user.image != ""
             else None
         )
-        context["user_gender"] = GENDERS.get(context["user"].gender, "")
+        context["user_gender"] = GENDERS.get(context["detail_user"].gender, "")
         return context
 
 
