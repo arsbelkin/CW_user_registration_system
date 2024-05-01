@@ -126,8 +126,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 #password_setting
-PASSWORD_KEY = 'cj3/#hjd'
-
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.MyXORHasher",
 ]
