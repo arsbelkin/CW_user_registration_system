@@ -7,4 +7,5 @@ packaging==24.0
 pathspec==0.12.1
 pillow==10.2.0
 platformdirs==4.2.0
+python-dotenv==1.0.1
 sqlparse==0.4.4

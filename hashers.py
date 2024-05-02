@@ -21,6 +21,12 @@ from django.utils.deprecation import RemovedInDjango50Warning, RemovedInDjango51
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_noop as _
 
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 UNUSABLE_PASSWORD_PREFIX = "!"  # This will never be a valid encoded hash
 UNUSABLE_PASSWORD_SUFFIX_LENGTH = (
     40  # number of random chars to add after UNUSABLE_PASSWORD_PREFIX
@@ -291,7 +297,7 @@ class BasePasswordHasher:
 class MyXORHasher(BasePasswordHasher):
 
     algorithm = "my_XOR_hasher"
-    PASSWORD_KEY = 'cj3/#hjd'
+    PASSWORD_KEY = os.getenv("PASSWORD_KEY")
     
     def encode(self, password, salt=None):
         conv_password = self.__conv(password)
