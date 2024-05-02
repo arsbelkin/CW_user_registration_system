@@ -125,9 +125,14 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-#password_setting
+# password_setting
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.MyXORHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
 
 
@@ -135,14 +140,14 @@ AUTH_USER_MODEL = "users.User"
 
 
 # Base url to serve media files
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 
 # Path where media is stored'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / "media"
 
 
-LOGIN_REDIRECT_URL = 'index'
-LOGIN_URL = 'users:login'
-LOGOUT_URL = 'users:logout'
+LOGIN_REDIRECT_URL = "index"
+LOGIN_URL = "users:login"
+LOGOUT_URL = "users:logout"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
