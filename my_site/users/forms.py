@@ -368,7 +368,7 @@ class PasswordResetForm(PasswordResetForm):
 
 class PasswordResetConfirmForm(SetPasswordForm):
     new_password1 = forms.CharField(
-        label="new password",
+        label="новый пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
@@ -380,7 +380,7 @@ class PasswordResetConfirmForm(SetPasswordForm):
     )
 
     new_password2 = forms.CharField(
-        label="repeat new password",
+        label="повторите новый пароль",
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
