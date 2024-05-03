@@ -16,13 +16,14 @@
     ```
     python3 -m venv cw_venv
     ```
+1. Активируйте вируальное окружение
 1. Выполните следующую команду:
     ```
     pip install -r requirements.txt
     ```
 1. Замените файл `django.contrib.auth.hashers` файлом `hashers.py`
 1. Скопируйте данные из файла `.env.template` в файл `.env` и измените данные на ваши
-1. Выполните следующие команды c уже активированным виртуальным окружением:
+1. Выполните следующие команды:
    ```
    python3 manage.py makemigrations
    python3 manage.py migrate
