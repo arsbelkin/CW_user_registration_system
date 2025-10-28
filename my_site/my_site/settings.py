@@ -80,11 +80,30 @@ WSGI_APPLICATION = "my_site.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),  # Имя вашей базы данных
+        'USER': os.getenv('DB_USER'),  # Имя пользователя PostgreSQL
+        'PASSWORD': os.getenv('DB_PASSWORD'),  # Пароль пользователя
+        'HOST': os.getenv('DB_HOST'),  # Хост, где работает PostgreSQL (обычно 'localhost')
+        'PORT': os.getenv('DB_PORT'),  # Порт, на котором работает PostgreSQL (по умолчанию 5432)
     }
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.getenv('CACHES_LOCATION'),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+        "KEY_PREFIX": "my_site"  
+    }
+}
+
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 
 # Password validation
